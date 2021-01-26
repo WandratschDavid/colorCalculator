@@ -1,10 +1,13 @@
 package model;
 
+import java.util.Scanner;
+
 public class Model
 {
     private static ModularCounter red = new ModularCounter(256);
     private static ModularCounter green = new ModularCounter(256);
     private static ModularCounter blue = new ModularCounter(256);
+
 
     public static void chanceColorViaAbsoluteValue(ColorCode cc, int value)
     {
@@ -76,7 +79,7 @@ public class Model
 
     public static String getHex()
     {
-        String hex = "#";
+        String hexCode = "#";
 
         String redValue = Integer.toHexString(red.getValue());
         String greenValue = Integer.toHexString(green.getValue());
@@ -89,11 +92,11 @@ public class Model
         if (blueValue.length() == 1)
             blueValue = "0" + blueValue;
 
-        hex += redValue;
-        hex += greenValue;
-        hex += blueValue;
+        hexCode += redValue;
+        hexCode += greenValue;
+        hexCode += blueValue;
 
-        return hex;
+        return hexCode;
     }
 
     @Override
@@ -106,7 +109,98 @@ public class Model
                 '}';
     }
 
-    public static void printConsoleMenu() {}
+    public static void printConsoleMenu()
+    {
+        System.out.println("Please choose one of the following options:");
+        System.out.println("a - changeColorViaAbsoluteValue" + "\nr - changeColorViaRelativeValue" + "\n? - view all accessors" + "\nq - quit" + "\n");
+    }
 
-    public static void printCurrentValues() {}
+    public static void printCurrentColorValues()
+    {
+        System.out.println("Red = " + getRed() + "\nGreen = " + getGreen() + "\nBlue = " + getBlue() + "\nHexvalue = #" + getHex() + "\n");
+    }
+
+
+    public static void main(String[] args)
+    {
+        String userChoice;
+        Scanner sc = new Scanner(System.in);
+
+        do
+        {
+            printConsoleMenu();
+            userChoice = sc.next();
+
+            switch(userChoice)
+            {
+                case "a":
+                    System.out.println("Please enter red, green or blue!");
+                    String userColorInputAbsolute = sc.next();
+
+                    System.out.println("Please enter a number from 0 - 255!");
+                    int userValueInputAbsolute = sc.nextInt();
+
+                    switch(userColorInputAbsolute)
+                    {
+                        case "red":
+                            chanceColorViaAbsoluteValue(ColorCode.RED, userValueInputAbsolute);
+                            break;
+
+                        case "green":
+                            chanceColorViaAbsoluteValue(ColorCode.GREEN, userValueInputAbsolute);
+                            break;
+
+                        case "blue":
+                            chanceColorViaAbsoluteValue(ColorCode.BLUE, userValueInputAbsolute);
+                            break;
+
+                        default:
+                            System.out.println("Please only enter one of the above mentioned colors!");
+                            break;
+                    }
+                    break;
+
+                case "r":
+                    System.out.println("Please enter red, green or blue!");
+                    String userColorInputRelative = sc.next();
+
+                    System.out.println("Please enter +10 or -10!");
+                    String userValueInputRelative = sc.next();
+
+                    switch(userColorInputRelative)
+                    {
+                        case "red":
+                            chanceColorViaRelativeValue(ColorCode.RED, userValueInputRelative);
+                            break;
+
+                        case "green":
+                            chanceColorViaRelativeValue(ColorCode.GREEN, userValueInputRelative);
+                            break;
+
+                        case "blue":
+                            chanceColorViaRelativeValue(ColorCode.BLUE, userValueInputRelative);
+                            break;
+
+                        default:
+                            System.out.println("Please only enter one of the above mentioned colors!");
+                            break;
+                    }
+                    break;
+
+                case "?":
+                    printCurrentColorValues();
+                    break;
+
+                case "q":
+                    System.exit(-1);
+                    break;
+
+                default:
+                    System.out.println("Wrong input!");
+                    System.out.println("Please only enter one from the above mentioned letters!");
+                    break;
+            }
+        }
+        while(true);
+    }
 }

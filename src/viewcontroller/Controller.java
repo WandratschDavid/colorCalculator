@@ -29,7 +29,6 @@ public class Controller implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
-
     public static void show(Stage stage) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(Controller.class.getResource("view.fxml"));
@@ -39,7 +38,6 @@ public class Controller implements Initializable
         stage.setScene(new Scene(root));
         stage.show();
     }
-
 
     public void setExactValue(KeyEvent keyEvent)
     {
