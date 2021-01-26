@@ -6,7 +6,7 @@ public class Model
     private static ModularCounter green = new ModularCounter(256);
     private static ModularCounter blue = new ModularCounter(256);
 
-    public void chanceColorViaAbsoluteValue(ColorCode cc, int value)
+    public static void chanceColorViaAbsoluteValue(ColorCode cc, int value)
     {
         if (value >= 0 && value <= 255)
         {
@@ -30,11 +30,11 @@ public class Model
         }
     }
 
-    public void chanceColorViaRelativeValue(ColorCode cc, String input)
+    public static void chanceColorViaRelativeValue(ColorCode cc, String input)
     {
         switch (input)
         {
-            case "+":
+            case "+10":
                 if (cc == ColorCode.RED && red.getValue() + 10 < red.getModulus())
                 {
                     red.inc(10);
@@ -50,7 +50,7 @@ public class Model
                     }
                 break;
 
-            case "-":
+            case "-10":
                 if (cc == ColorCode.RED && red.getValue() - 10 >= 0)
                 {
                     red.dec(10);
