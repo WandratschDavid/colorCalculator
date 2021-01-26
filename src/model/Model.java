@@ -2,53 +2,79 @@ package model;
 
 public class Model
 {
-    private ModularCounter red;
-    private ModularCounter green;
-    private ModularCounter blue;
-
-    public Model()
-    {
-        this.red = new ModularCounter(0, 256);
-        this.green = new ModularCounter(0, 256);
-        this.blue = new ModularCounter(0, 256);
-    }
-
-    public void chanceColorViaAbsoluteValue(ColorCode cc, String value)
-    {
-
-    }
+    private static ModularCounter red = new ModularCounter(256);
+    private static ModularCounter green = new ModularCounter(256);
+    private static ModularCounter blue = new ModularCounter(256);
 
     public void chanceColorViaAbsoluteValue(ColorCode cc, int value)
     {
+        if (value >= 0 && value <= 255)
+        {
+            switch (cc)
+            {
+                case RED:
+                    red.reset();
+                    red.inc(value);
+                    break;
 
+                case GREEN:
+                    green.reset();
+                    green.inc(value);
+                    break;
+
+                case BLUE:
+                    blue.reset();
+                    blue.inc(value);
+                    break;
+            }
+        }
     }
 
-    public void chanceColorViaRelativeValue(ColorCode cc, String value)
+    public void chanceColorViaRelativeValue(ColorCode cc, String input)
     {
+        switch (input)
+        {
+            case "+":
+                if (cc == ColorCode.RED && red.getValue() + 10 < red.getModulus())
+                {
+                    red.inc(10);
+                }
+                else if (cc == ColorCode.GREEN && green.getValue() + 10 < green.getModulus())
+                {
+                    green.inc(10);
+                }
+                else
+                    {
+                        if (blue.getValue() + 10 < blue.getModulus())
+                            blue.inc(10);
+                    }
+                break;
 
+            case "-":
+                if (cc == ColorCode.RED && red.getValue() - 10 >= 0)
+                {
+                    red.dec(10);
+                }
+                else if (cc == ColorCode.GREEN && green.getValue() - 10 >= 0)
+                {
+                    green.dec(10);
+                }
+                else
+                    {
+                        if (blue.getValue() - 10 >= 0)
+                            blue.dec(10);
+                    }
+                break;
+        }
     }
 
-    public void chanceColorViaRelativeValue(ColorCode cc, int value)
-    {
+    public static int getRed() {return red.getValue();}
 
-    }
+    public static int getGreen() {return green.getValue();}
 
-    public int getRed()
-    {
-        return red;
-    }
+    public static int getBlue() {return blue.getValue();}
 
-    public int getGreen()
-    {
-        return green;
-    }
-
-    public int getBlue()
-    {
-        return blue;
-    }
-
-    public String getHex()
+    public static String getHex()
     {
         String hex = "#";
 
@@ -73,6 +99,14 @@ public class Model
     @Override
     public String toString()
     {
-
+        return "Model{" +
+                "red=" + red +
+                ", green=" + green +
+                ", blue=" + blue +
+                '}';
     }
+
+    public static void printConsoleMenu() {}
+
+    public static void printCurrentValues() {}
 }

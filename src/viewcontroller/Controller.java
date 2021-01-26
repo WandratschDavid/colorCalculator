@@ -1,9 +1,12 @@
 package viewcontroller;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,8 +15,25 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable
 {
+    @FXML
+    Label lbl_colorView = new Label();
+
+    @FXML
+    TextField txtF_hexValue = new TextField();
+
+    @FXML
+    TextField txtF_rgbValueRed = new TextField();
+
+    @FXML
+    TextField txtF_rgbValueGreen = new TextField();
+
+    @FXML
+    TextField txtF_rgbValueBlue = new TextField();
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
+
 
     public static void show(Stage stage) throws IOException
     {
@@ -24,4 +44,8 @@ public class Controller implements Initializable
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+
+    
+
 }
